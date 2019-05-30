@@ -6,7 +6,10 @@
 
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <math.h>
+
+using namespace std;
 
 class test_LinkedList : public ::testing::Test {
 protected:
@@ -43,136 +46,79 @@ protected:
 	static int max_grade;
 };
 
-int test_Vector10::total_grade = 0;
-int test_Vector10::max_grade = 0;
+int test_LinkedList::total_grade = 0;
+int test_LinkedList::max_grade = 0;
 
-TEST_F(test_Vector10, Initialization){
-    Vector10 testvec;
-
-    for(int ii=0; ii<10; ii++){
-        EXPECT_EQ(0,testvec.ValueAt(ii));
-    	add_points_to_grade(1);
-    }
+TEST_F(test_LinkedList, Initialization){
+  LinkedList mylist;
+  EXPECT_EQ(NULL, mylist.GetTop());
+  add_points_to_grade(1);
+  shared_ptr<node> root = mylist.InitNode(42);
+  EXPECT_FALSE(root == NULL);
+  add_points_to_grade(1);
+  EXPECT_EQ(42, root->data);
+  add_points_to_grade(1);
+  EXPECT_TRUE(root->next == NULL);
+  add_points_to_grade(1);
 }
 
-TEST_F(test_Vector10, TestPushBackNoRemoval){
-	Vector10 testvec;
-
-	testvec.PushBack(12);
-	testvec.PushBack(45);
-	testvec.PushBack(93);
-	testvec.PushBack(1000);
-	testvec.PushBack(0);
-	testvec.PushBack(22);
-
-	EXPECT_EQ(12,testvec.ValueAt(0));
-	add_points_to_grade(1);
-	EXPECT_EQ(22,testvec.ValueAt(5));
-	add_points_to_grade(1);
-	EXPECT_EQ(93,testvec.ValueAt(2));
-	add_points_to_grade(1);
-	EXPECT_EQ(45,testvec.ValueAt(1));
-	add_points_to_grade(1);
-	EXPECT_EQ(0,testvec.ValueAt(4));
-	add_points_to_grade(1);
-	EXPECT_EQ(1000,testvec.ValueAt(3));
-	add_points_to_grade(1);
-}
-
-TEST_F(test_Vector10, TestPushBackOverflow){
-    Vector10 testvec;
-
-	for(int i=0; i<10; i++){
-		EXPECT_EQ(true,testvec.PushBack(i+12));
-		add_points_to_grade(0.3);
-	}
-	for(int i=0; i<10; i++){
-		EXPECT_EQ(false,testvec.PushBack(i*3));
-		add_points_to_grade(0.3);
-	}
-}
-
-TEST_F(test_Vector10, TestCountEmpty){
-    Vector10 testvec;
-
-	EXPECT_EQ(10,testvec.CountEmpty());
-	add_points_to_grade(2);
-
-	testvec.PushBack(1);
-	EXPECT_EQ(9,testvec.CountEmpty());
-	add_points_to_grade(2);
-
-	testvec.PushBack(22);
-	testvec.PushBack(150);
-	testvec.PushBack(90);
-	EXPECT_EQ(6,testvec.CountEmpty());
-	add_points_to_grade(2);
-}
-
-TEST_F(test_Vector10, TestSearch){
-	Vector10 testvec;
-	
-	EXPECT_EQ(false,testvec.Search(12));
-	add_points_to_grade(5);
-
-	testvec.PushBack(11);
-	testvec.PushBack(12);
-	testvec.PushBack(13);
-	EXPECT_EQ(true,testvec.Search(12));
-	add_points_to_grade(5);
-}
-
-TEST_F(test_Vector10, TestRemove){
-	Vector10 testvec;
-
-	testvec.PushBack(11);
-	testvec.PushBack(12);
-	testvec.PushBack(13);
-	testvec.PushBack(19);
-	testvec.PushBack(1000);
-	testvec.PushBack(3);
-
-	EXPECT_EQ(false,testvec.Remove(200));
-	add_points_to_grade(2);
-
-	EXPECT_EQ(true,testvec.Remove(1));
-	add_points_to_grade(2);
-
-	EXPECT_EQ(1000,testvec.ValueAt(3));
-	add_points_to_grade(2);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
-#include <iostream>
-#include "linked_list.h"
-#include <string>
-
-using namespace std;
-
-node* build_three_node_list(int one, int two, int three) {
-  node* top = new node;
+shared_ptr<node> build_three_node_list(int one, int two, int three) {
+  shared_ptr<node> top(new node);
   top->data = one;
-  top->next = new node;
+  top->next = shared_ptr<node>(new node);
   top->next->data = two;
-  top->next->next = new node;
+  top->next->next = shared_ptr<node>(new node);
   top->next->next->data = three;
   top->next->next->next = NULL;
   return top;
 }
+
+TEST_F(test_LinkedList, Report){
+  LinkedList mylist;
+
+  string exp("");
+  EXPECT_EQ("",mylist.Report());
+  add_points_to_grade(2);
+
+  // create a three node list and test the report result
+  shared_ptr<node> top = build_three_node_list(1, 2, 3);
+  // replace mylist top_ptr_ with this new top
+  mylist.SetTop(top);
+  EXPECT_EQ("1 2 3 ",mylist.Report());
+  add_points_to_grade(2);
+}
+
+TEST_F(test_LinkedList, AppendData){
+  LinkedList mylist;
+  shared_ptr<node> top = build_three_node_list(42, 74, 51);
+  mylist.SetTop(top);
+  mylist.AppendData(10);
+  // get a cursor for appended data
+  shared_ptr<node> cursor = mylist.GetTop()->next->next;
+  EXPECT_FALSE(cursor == NULL);
+  add_points_to_grade(1);
+
+  EXPECT_TRUE(cursor->next == NULL);
+  add_points_to_grade(1);
+
+  EXPECT_EQ(10,cursor->data);
+  add_points_to_grade(1);
+
+  // try appending one more node
+  mylist.AppendData(102);
+  // get a cursor for appended data
+  shared_ptr<node> cursor = mylist.GetTop()->next->next->next;
+  EXPECT_FALSE(cursor == NULL);
+  add_points_to_grade(1);
+
+  EXPECT_TRUE(cursor->next == NULL);
+  add_points_to_grade(1);
+
+  EXPECT_EQ(102,cursor->data);
+  add_points_to_grade(1);
+}
+
+/*
 
 node* scan(node* top, int how_many) {
   int count = 0;
@@ -201,35 +147,10 @@ bool expect_all(int vals[], int size, node** top) {
   return ret;
 }
 
-TEST_CASE("Linked lists: initialization", "[init]" ) {
-  node* root = init_node(42);
-  REQUIRE(root != NULL);
-  REQUIRE(root->data == 42);
-  REQUIRE(root->next == NULL);
-}
 
-TEST_CASE("Linked lists: report", "[report]") {
-  node* top = NULL; // empty list
-  string exp ("");
-  string out = report(top);
-  REQUIRE(string::npos != out.find(exp, 0));
-  top = build_three_node_list(1, 2, 3);
-  exp = "1 2 3";
-  out = report(top);
-  REQUIRE(string::npos != out.find(exp, 0));
-}
 
-TEST_CASE("Linked lists: append data", "[append data]") {
-  node* top = build_three_node_list(42, 74, 51);
-  append_data(&top, 10);
-  node* four = scan(top, 3);
-  REQUIRE(four != NULL);
-  REQUIRE(four->data == 10);
-  append_data(&top, 99);
-  node* five = scan(top, 4);
-  REQUIRE(five != NULL);
-  REQUIRE(five->data == 99);
-}
+
+
 
 TEST_CASE("Linked lists: append node", "[append node]") {
   node* head = NULL;
@@ -338,3 +259,4 @@ TEST_CASE("Linked lists: contains", "[contains]") {
   REQUIRE_FALSE(contains(top, 21));
   REQUIRE_FALSE(contains(top, 43));  
 }
+*/
