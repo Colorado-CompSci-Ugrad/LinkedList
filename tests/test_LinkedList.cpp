@@ -50,16 +50,16 @@ int test_LinkedList::total_grade = 0;
 int test_LinkedList::max_grade = 0;
 
 TEST_F(test_LinkedList, Initialization){
-  LinkedList mylist;
-  EXPECT_EQ(NULL, mylist.GetTop());
-  add_points_to_grade(1);
-  shared_ptr<node> root = mylist.InitNode(42);
-  EXPECT_FALSE(root == NULL);
-  add_points_to_grade(1);
-  EXPECT_EQ(42, root->data);
-  add_points_to_grade(1);
-  EXPECT_TRUE(root->next == NULL);
-  add_points_to_grade(1);
+  // LinkedList mylist;
+  // EXPECT_EQ(NULL, mylist.GetTop());
+  // add_points_to_grade(1);
+  // shared_ptr<node> root = mylist.InitNode(42);
+  // EXPECT_NE(NULL, root);
+  // add_points_to_grade(1);
+  // EXPECT_EQ(42, root->data);
+  // add_points_to_grade(1);
+  // EXPECT_EQ(NULL, root->next);
+  // add_points_to_grade(1);
 }
 
 shared_ptr<node> build_three_node_list(int one, int two, int three) {
@@ -74,48 +74,48 @@ shared_ptr<node> build_three_node_list(int one, int two, int three) {
 }
 
 TEST_F(test_LinkedList, Report){
-  LinkedList mylist;
+  // LinkedList mylist;
 
-  string exp("");
-  EXPECT_EQ("",mylist.Report());
-  add_points_to_grade(2);
+  // string exp("");
+  // EXPECT_EQ("",mylist.Report());
+  // add_points_to_grade(2);
 
-  // create a three node list and test the report result
-  shared_ptr<node> top = build_three_node_list(1, 2, 3);
-  // replace mylist top_ptr_ with this new top
-  mylist.SetTop(top);
-  EXPECT_EQ("1 2 3 ",mylist.Report());
-  add_points_to_grade(2);
+  // // create a three node list and test the report result
+  // shared_ptr<node> top = build_three_node_list(1, 2, 3);
+  // // replace mylist top_ptr_ with this new top
+  // mylist.SetTop(top);
+  // EXPECT_EQ("1 2 3 ",mylist.Report());
+  // add_points_to_grade(2);
 }
 
 TEST_F(test_LinkedList, AppendData){
-  LinkedList mylist;
-  shared_ptr<node> top = build_three_node_list(42, 74, 51);
-  mylist.SetTop(top);
-  mylist.AppendData(10);
-  // get a cursor for appended data
-  shared_ptr<node> cursor = mylist.GetTop()->next->next;
-  EXPECT_FALSE(cursor == NULL);
-  add_points_to_grade(1);
+  // LinkedList mylist;
+  // shared_ptr<node> top = build_three_node_list(42, 74, 51);
+  // mylist.SetTop(top);
+  // mylist.AppendData(10);
+  // // get a cursor for appended data
+  // shared_ptr<node> cursor = mylist.GetTop()->next->next;
+  // EXPECT_NE(NULL,cursor);
+  // add_points_to_grade(1);
 
-  EXPECT_TRUE(cursor->next == NULL);
-  add_points_to_grade(1);
+  // EXPECT_EQ(NULL,cursor->next);
+  // add_points_to_grade(1);
 
-  EXPECT_EQ(10,cursor->data);
-  add_points_to_grade(1);
+  // EXPECT_EQ(10,cursor->data);
+  // add_points_to_grade(1);
 
-  // try appending one more node
-  mylist.AppendData(102);
-  // get a cursor for appended data
-  shared_ptr<node> cursor = mylist.GetTop()->next->next->next;
-  EXPECT_FALSE(cursor == NULL);
-  add_points_to_grade(1);
+  // // try appending one more node
+  // mylist.AppendData(102);
+  // // update cursor to point to fifth member
+  // cursor = mylist.GetTop()->next->next->next;
+  // EXPECT_NE(NULL,cursor);
+  // add_points_to_grade(1);
 
-  EXPECT_TRUE(cursor->next == NULL);
-  add_points_to_grade(1);
+  // EXPECT_EQ(NULL,cursor->next);
+  // add_points_to_grade(1);
 
-  EXPECT_EQ(102,cursor->data);
-  add_points_to_grade(1);
+  // EXPECT_EQ(102,cursor->data);
+  // add_points_to_grade(1);
 }
 
 /*
