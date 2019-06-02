@@ -72,11 +72,11 @@ public:
   // size returns the number of nodes in the linked list reachable by
   // head before (but not including) the terminating NULL link. E.g., an
   // empty list has size 0, a list with one item has size 1, etc.
-  int Size(shared_ptr<node> head);
+  int Size();
 
   // contains returns true if the linked list pointed to by head
   // contains a node with the specified value, false otherwise.
-  bool Contains(shared_ptr<node> head, int data);
+  bool Contains(int data);
 
   // This function is implemented for you
   // Returns the top pointer

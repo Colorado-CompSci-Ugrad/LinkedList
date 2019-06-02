@@ -39,11 +39,11 @@ void LinkedList::Remove(int offset){
   // Your code here
 }
 
-int LinkedList::Size(shared_ptr<node> head){
+int LinkedList::Size(){
   // Your code here
 }
 
-bool LinkedList::Contains(shared_ptr<node> head, int data){
+bool LinkedList::Contains(int data){
   // Your code here
 }
 
