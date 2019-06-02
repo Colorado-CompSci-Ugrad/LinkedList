@@ -49,20 +49,20 @@ protected:
 int test_LinkedList::total_grade = 0;
 int test_LinkedList::max_grade = 0;
 
-TEST_F(test_LinkedList, Initialization){
-  // LinkedList mylist;
-  // EXPECT_EQ(NULL, mylist.GetTop());
-  // add_points_to_grade(1);
-  // shared_ptr<node> root = mylist.InitNode(42);
-  // EXPECT_NE(NULL, root);
-  // add_points_to_grade(1);
-  // EXPECT_EQ(42, root->data);
-  // add_points_to_grade(1);
-  // EXPECT_EQ(NULL, root->next);
-  // add_points_to_grade(1);
+TEST_F(test_LinkedList, TestInitialization){
+  LinkedList mylist;
+  EXPECT_EQ(NULL, mylist.GetTop());
+  add_points_to_grade(1);
+  shared_ptr<node> root = mylist.InitNode(42);
+  EXPECT_NE(NULL, root);
+  add_points_to_grade(1);
+  EXPECT_EQ(42, root->data);
+  add_points_to_grade(1);
+  EXPECT_EQ(NULL, root->next);
+  add_points_to_grade(1);
 }
 
-shared_ptr<node> build_three_node_list(int one, int two, int three) {
+shared_ptr<node> build_three_node_list_helper(int one, int two, int three) {
   shared_ptr<node> top(new node);
   top->data = one;
   top->next = shared_ptr<node>(new node);
@@ -73,65 +73,89 @@ shared_ptr<node> build_three_node_list(int one, int two, int three) {
   return top;
 }
 
-TEST_F(test_LinkedList, Report){
-  // LinkedList mylist;
+TEST_F(test_LinkedList, TestReport){
+  LinkedList mylist;
 
-  // string exp("");
-  // EXPECT_EQ("",mylist.Report());
-  // add_points_to_grade(2);
+  string exp("");
+  EXPECT_EQ("",mylist.Report());
+  add_points_to_grade(2);
 
-  // // create a three node list and test the report result
-  // shared_ptr<node> top = build_three_node_list(1, 2, 3);
-  // // replace mylist top_ptr_ with this new top
-  // mylist.SetTop(top);
-  // EXPECT_EQ("1 2 3 ",mylist.Report());
-  // add_points_to_grade(2);
+  // create a three node list and test the report result
+  shared_ptr<node> top = build_three_node_list_helper(1, 2, 3);
+  // replace mylist top_ptr_ with this new top
+  mylist.SetTop(top);
+  EXPECT_EQ("1 2 3 ",mylist.Report());
+  add_points_to_grade(2);
 }
 
-TEST_F(test_LinkedList, AppendData){
-  // LinkedList mylist;
-  // shared_ptr<node> top = build_three_node_list(42, 74, 51);
-  // mylist.SetTop(top);
-  // mylist.AppendData(10);
-  // // get a cursor for appended data
-  // shared_ptr<node> cursor = mylist.GetTop()->next->next;
-  // EXPECT_NE(NULL,cursor);
-  // add_points_to_grade(1);
+TEST_F(test_LinkedList, TestAppendData){
+  LinkedList mylist;
+  shared_ptr<node> top = build_three_node_list_helper(42, 74, 51);
+  mylist.SetTop(top);
+  mylist.AppendData(10);
+  // get a cursor for appended data
+  shared_ptr<node> cursor = mylist.GetTop()->next->next;
+  EXPECT_NE(NULL,cursor);
+  add_points_to_grade(1);
 
-  // EXPECT_EQ(NULL,cursor->next);
-  // add_points_to_grade(1);
+  EXPECT_EQ(NULL,cursor->next);
+  add_points_to_grade(1);
 
-  // EXPECT_EQ(10,cursor->data);
-  // add_points_to_grade(1);
+  EXPECT_EQ(10,cursor->data);
+  add_points_to_grade(1);
 
-  // // try appending one more node
-  // mylist.AppendData(102);
-  // // update cursor to point to fifth member
-  // cursor = mylist.GetTop()->next->next->next;
-  // EXPECT_NE(NULL,cursor);
-  // add_points_to_grade(1);
+  // try appending one more node
+  mylist.AppendData(102);
+  // update cursor to point to fifth member
+  cursor = mylist.GetTop()->next->next->next;
+  EXPECT_NE(NULL,cursor);
+  add_points_to_grade(1);
 
-  // EXPECT_EQ(NULL,cursor->next);
-  // add_points_to_grade(1);
+  EXPECT_EQ(NULL,cursor->next);
+  add_points_to_grade(1);
 
-  // EXPECT_EQ(102,cursor->data);
-  // add_points_to_grade(1);
+  EXPECT_EQ(102,cursor->data);
+  add_points_to_grade(1);
 }
 
-/*
+TEST_F(test_LinkedList, TestAppendNode) {
 
-node* scan(node* top, int how_many) {
-  int count = 0;
-  node* cursor;
-  for (cursor = top; count < how_many && cursor != NULL; cursor = cursor->next) {
-    count++;
-  }
-  return cursor;
+  LinkedList mylist;
+  
+  // test appending to empty list
+  shared_ptr<node> ap_five = mylist.InitNode(5);
+  // add node 15 to an empty list
+  mylist.Append(ap_five); 
+  // ensure the list has a non-null top
+  EXPECT_NE(NULL,mylist.GetTop());
+  add_points_to_grade(1);
+  // ensure first element is the ap_nd node by coparing addresses
+  EXPECT_EQ(ap_five.get(), mylist.GetTop().get()); 
+  add_points_to_grade(1);
+  // ensure first element's value is 15
+  EXPECT_EQ(15,mylist.GetTop()->data); 
+  add_points_to_grade(1);
+  
+  // create a node and store the pointer to it
+  shared_ptr<node> ap_ten = mylist.InitNode(10);
+  mylist.Append(ap_ten);
+  EXPECT_EQ(10,mylist.GetTop()->next->data);
+  add_points_to_grade(1);
+  EXPECT_EQ(NULL,mylist.GetTop()->next->next);
+  add_points_to_grade(1);
+  
+  // try appending one more
+  shared_ptr<node> ap_nn = mylist.InitNode(99);
+  mylist.Append(ap_nn);
+  EXPECT_EQ(99,mylist.GetTop()->next->next->data);
+  add_points_to_grade(1);
+  EXPECT_EQ(NULL,mylist.GetTop()->next->next->next);
+  add_points_to_grade(1);
 }
 
-bool expect_all(int vals[], int size, node** top) {
+bool expect_all_helper(int vals[], int size, shared_ptr<node> top) {
   bool ret = true;
-  node* cursor = *top;
+  node* cursor = top.get();
   for (int i=0; i < size; i++) {
     if (cursor == NULL || cursor->data != vals[i]) {
       if (cursor == NULL) {
@@ -147,116 +171,100 @@ bool expect_all(int vals[], int size, node** top) {
   return ret;
 }
 
+TEST_F(test_LinkedList, TestInsertData) {
+  LinkedList mylist;
 
-
-
-
-
-TEST_CASE("Linked lists: append node", "[append node]") {
-  node* head = NULL;
-  node** top = &head;
+  shared_ptr<node> threenode = build_three_node_list_helper(30, 20, 10);
+  mylist.SetTop(threenode); // list is now 30, 20, 10
   
-  // test appending to empty list
-  node* ap_seven = init_node(7);
-  append(top, ap_seven); // add node 7 to an empty list
-  REQUIRE(*top != NULL); // ensure the list has a non-null head
-  node* erst = scan(*top, 0); // get the first element in the list
-  REQUIRE(erst != NULL); // ensure first element isn't null
-  REQUIRE(erst == ap_seven); // ensure first element is the ap_seven node
-  REQUIRE(erst->data == 7); // ensure first element's value is 7
+  EXPECT_TRUE(expect_all_helper(initial_three, 3,mylist.GetTop()))
 
-  // test appending to non-empty list
-  head = build_three_node_list(42, 74, 51);
-  node* ap_ten = init_node(10);
-  append(&head, ap_ten);
-  node* four = scan(head, 3);
-  REQUIRE(four != NULL);
-  REQUIRE(four->data == 10);
-  node* ap_ninenine = init_node(99);
-  append(&head, ap_ninenine);
-  node* five = scan(head, 4);
-  REQUIRE(five != NULL);
-  REQUIRE(five->data == 99);
-}
+  mylist.InsertData(0,4); // list is now 4, 30, 20, 10
 
-TEST_CASE("Linked lists: insert data", "[insert data]") {
-  node* top = build_three_node_list(30, 20, 10);
-  int initial_three[] = { 30, 20, 10 };
-  REQUIRE(expect_all(initial_three, 3, &top));
-  
-  insert_data(&top, 0, 4); // list is now 4, 30, 20, 10
   int vals[] = { 4, 30, 20, 10 };
-  REQUIRE(expect_all(vals, 4, &top)); 
+  EXPECT_TRUE(expect_all_helper(vals, 4, mylist.GetTop())); 
   
-  insert_data(&top, 2, -8); // list is now 4, 30, -8, 20, 10
-  int vals2[] = { 4, 30, -8, 20, 10 };
-  REQUIRE(expect_all(vals2, 5, &top));
+  mylist.InsertData(2,-78); // list is now 4, 30, -78, 20, 10
+  int vals2[] = { 4, 30, -78, 20, 10 };
+  EXPECT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop));
   
-  insert_data(&top, 5, 99); // list is now 4, 30, -8, 20, 10, 99
-  int vals3[] = { 4, 30, -8, 20, 10, 99 };
-  REQUIRE(expect_all(vals3, 6, &top));
+  mylist.InsertData(5,99); // list is now 4, 30, -78, 20, 10, 99
+  int vals3[] = { 4, 30, -78, 20, 10, 99 };
+  EXPECT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
 }
 
-TEST_CASE("Linked lists: insert node", "[insert node]") {
-  node* top = build_three_node_list(7, 98, -34);
-  
+TEST_F(test_LinkedList, TestInsertNode) {
+  LinkedList mylist;
+
+  shared_ptr<node> threenode = build_three_node_list_helper(7, 98, -34);
+  mylist.SetTop(threenode);
+
   // add at beginning
-  node* beginning = init_node(5);
-  insert(&top, 0, beginning);
+  shared_ptr<node> nd_five = mylist.InitNode(5);
+  mylist.Insert(0,nd_five)
   int vals[] = {5, 7, 98, -34};
-  REQUIRE(expect_all(vals, 4, &top));
+  EXPECT_TRUE(expect_all_helper(vals, 4, mylist.GetTop()));
   
   // add in middle
-  node* middle = init_node(20);
-  insert(&top, 2, middle);
+  shared_ptr<node> nd_middle = mylist.InitNode(20);
+  mylist.Insert(2,nd_middle)
   int vals2[] = { 5, 7, 20, 98, -34 };
-  REQUIRE(expect_all(vals2, 5, &top));
+  EXPECT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop()));
 
   // add at end
-  node* ending = init_node(800);
-  insert(&top, 5, ending);
+  shared_ptr<node> nd_ending = init_node(800);
+  mylist.Insert(5,nd_ending)
   int vals3[] = { 5, 7, 20, 98, -34, 800 };
-  REQUIRE(expect_all(vals3, 6, &top));
+  EXPECT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
 }
 
-TEST_CASE("Linked lists: remove", "[remove]") {
-  node* top = build_three_node_list(7, 86, 210);
+TEST_F(test_LinkedList, TestRemove) {
+  LinkedList mylist;
+  
+  shared_ptr<node> threenode = build_three_node_list_helper(7, 86, 210);
+  mylist.SetTop(threenode);
+
   int vals[] = {7, 86, 210 };
-  REQUIRE(expect_all(vals, 3, &top));
+  EXPECT_TRUE(expect_all_helper(vals, 3, mylist.GetTop()));
   
   // remove start
-  remove(&top, 0);
+  mylist.Remove(0)
   int vals2[] = {86, 210 };
-  REQUIRE(expect_all(vals2, 2, &top));
+  EXPECT_TRUE(expect_all_helper(vals2, 2, mylist.GetTop()));
   
   // reset and remove mid
-  top = build_three_node_list(7, 86, 210);
-  remove(&top, 1);
+  threenode = build_three_node_list_helper(7, 86, 210);
+  mylist.SetTop(threenode);
+  mylist.Remove(1);
   int vals3[] = {7, 210 };
-  REQUIRE(expect_all(vals3, 2, &top));
+  EXPECT_TRUE(expect_all_helper(vals3, 2, mylist.GetTop()));
 
   // reset and remove end
-  top = build_three_node_list(7, 86, 210);
-  remove(&top, 2);
+  threenode = build_three_node_list_helper(7, 86, 210);
+  mylist.SetTop(threenode);
+  mylist.Remove(2);
   int vals4[] = {7, 86 };
-  REQUIRE(expect_all(vals4, 2, &top));
+  EXPECT_TRUE(expect_all_helper(vals4, 2, mylist.GetTop()));
 }
 
-TEST_CASE("Linked lists: size", "[size]") {
-  node* empty = NULL;
-  REQUIRE(0 == size(empty));
 
-  node* top = build_three_node_list(8, 30, -43);
-  REQUIRE(3 == size(top));
+TEST_F(test_LinkedList, TestSize) {
+  LinkedList mylist;
+  EXPECT_EQ(0, mylist.Size());
+  
+  shared_ptr<node> threenode = build_three_node_list_helper(76, 12, 423);
+  mylist.SetTop(threenode);
+  EXPECT_EQ(3, mylist.Size());
 }
 
-TEST_CASE("Linked lists: contains", "[contains]") {
-  node* top = build_three_node_list(7, 0, -210);
-  REQUIRE(contains(top, -210));
-  REQUIRE(contains(top, 0));
-  REQUIRE(contains(top, 7));
-  REQUIRE_FALSE(contains(top, -21));
-  REQUIRE_FALSE(contains(top, 21));
-  REQUIRE_FALSE(contains(top, 43));  
+TEST_F(test_LinkedList, TestContains) {
+  shared_ptr<node> threenode = build_three_node_list_helper(7, 0, -210);
+  mylist.SetTop(threenode);
+
+  EXPECT_TRUE(mylist.Contains(-210));
+  EXPECT_TRUE(mylist.Contains(0));
+  EXPECT_TRUE(mylist.Contains(7));
+  EXPECT_FALSE(mylist.Contains(12));
+  EXPECT_FALSE(mylist.Contains(-120));
+  EXPECT_FALSE(mylist.Contains(55));
 }
-*/

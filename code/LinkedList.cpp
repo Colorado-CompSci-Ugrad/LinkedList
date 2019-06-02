@@ -23,7 +23,7 @@ void LinkedList::AppendData(int data){
   // Your code here
 }
 
-void LinkedList::Append(node* new_node){
+void LinkedList::Append(shared_ptr<node> new_node){
   // Your code here
 }
 
@@ -31,7 +31,7 @@ void LinkedList::InsertData(int offset, int data){
   // Your code here
 }
 
-void LinkedList::Insert(int offset, node* new_node){
+void LinkedList::Insert(int offset, shared_ptr<node> new_node){
   // Your code here
 }
 
