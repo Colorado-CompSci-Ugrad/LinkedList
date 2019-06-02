@@ -32,7 +32,7 @@ public:
   // top of the list. return that string object.  For example, this
   // might return "" (the empty string) if the list is empty, or it
   // might return "1 7 3 " (note the space at the end).
-  std::string Report();
+  string Report();
 
   // append_data adds a node onto the end of the list pointed to by
   // top. the resulting list is one element longer, and the newly

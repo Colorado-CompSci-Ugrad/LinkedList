@@ -12,11 +12,15 @@ LinkedList::~LinkedList(){
 
 
 shared_ptr<node> LinkedList::InitNode(int data){
+  shared_ptr<node> ret(new node);
   // Your code here
+  return ret;
 }
 
-std::string LinkedList::Report(){
+string LinkedList::Report(){
+  string ret;
   // Your code here
+  return ret;
 }
 
 void LinkedList::AppendData(int data){
@@ -40,11 +44,15 @@ void LinkedList::Remove(int offset){
 }
 
 int LinkedList::Size(){
+  int ret;
   // Your code here
+  return ret;
 }
 
 bool LinkedList::Contains(int data){
+  bool ret;
   // Your code here
+  return ret;
 }
 
 // This function is implemented for you

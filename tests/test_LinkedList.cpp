@@ -184,14 +184,17 @@ TEST_F(test_LinkedList, TestInsertData) {
 
   int vals[] = { 4, 30, 20, 10 };
   EXPECT_TRUE(expect_all_helper(vals, 4, mylist.GetTop())); 
-  
+  add_points_to_grade(1);
+
   mylist.InsertData(2,-78); // list is now 4, 30, -78, 20, 10
   int vals2[] = { 4, 30, -78, 20, 10 };
   EXPECT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop()));
-  
+  add_points_to_grade(1);
+
   mylist.InsertData(5,99); // list is now 4, 30, -78, 20, 10, 99
   int vals3[] = { 4, 30, -78, 20, 10, 99 };
   EXPECT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
+  add_points_to_grade(1);
 }
 
 TEST_F(test_LinkedList, TestInsertNode) {
@@ -205,18 +208,21 @@ TEST_F(test_LinkedList, TestInsertNode) {
   mylist.Insert(0,nd_five);
   int vals[] = {5, 7, 98, -34};
   EXPECT_TRUE(expect_all_helper(vals, 4, mylist.GetTop()));
+  add_points_to_grade(1);
   
   // add in middle
   shared_ptr<node> nd_middle = mylist.InitNode(20);
   mylist.Insert(2,nd_middle);
   int vals2[] = { 5, 7, 20, 98, -34 };
   EXPECT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop()));
+  add_points_to_grade(1);
 
   // add at end
   shared_ptr<node> nd_ending = mylist.InitNode(800);
   mylist.Insert(5,nd_ending);
   int vals3[] = { 5, 7, 20, 98, -34, 800 };
   EXPECT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
+  add_points_to_grade(1);
 }
 
 TEST_F(test_LinkedList, TestRemove) {
@@ -232,6 +238,7 @@ TEST_F(test_LinkedList, TestRemove) {
   mylist.Remove(0);
   int vals2[] = {86, 210 };
   EXPECT_TRUE(expect_all_helper(vals2, 2, mylist.GetTop()));
+  add_points_to_grade(1);
   
   // reset and remove mid
   threenode = build_three_node_list_helper(7, 86, 210);
@@ -239,6 +246,7 @@ TEST_F(test_LinkedList, TestRemove) {
   mylist.Remove(1);
   int vals3[] = {7, 210 };
   EXPECT_TRUE(expect_all_helper(vals3, 2, mylist.GetTop()));
+  add_points_to_grade(1);
 
   // reset and remove end
   threenode = build_three_node_list_helper(7, 86, 210);
@@ -246,16 +254,19 @@ TEST_F(test_LinkedList, TestRemove) {
   mylist.Remove(2);
   int vals4[] = {7, 86 };
   EXPECT_TRUE(expect_all_helper(vals4, 2, mylist.GetTop()));
+  add_points_to_grade(1);
 }
 
 
 TEST_F(test_LinkedList, TestSize) {
   LinkedList mylist;
   EXPECT_EQ(0, mylist.Size());
+  add_points_to_grade(2);
   
   shared_ptr<node> threenode = build_three_node_list_helper(76, 12, 423);
   mylist.SetTop(threenode);
   EXPECT_EQ(3, mylist.Size());
+  add_points_to_grade(2);
 }
 
 TEST_F(test_LinkedList, TestContains) {
@@ -264,9 +275,13 @@ TEST_F(test_LinkedList, TestContains) {
   mylist.SetTop(threenode);
 
   EXPECT_TRUE(mylist.Contains(-210));
+  add_points_to_grade(0.8);
   EXPECT_TRUE(mylist.Contains(0));
+  add_points_to_grade(0.8);
   EXPECT_TRUE(mylist.Contains(7));
+  add_points_to_grade(0.8);
   EXPECT_FALSE(mylist.Contains(12));
+  add_points_to_grade(0.8);
   EXPECT_FALSE(mylist.Contains(-120));
-  EXPECT_FALSE(mylist.Contains(55));
+  add_points_to_grade(0.8);
 }
