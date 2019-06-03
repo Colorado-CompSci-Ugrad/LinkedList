@@ -86,7 +86,7 @@ video lectures. Here's a summary:
 
 * **LinkedList()** - LinkedList constructor, set top pointer to null when object is created.
 * **~LinkedList()** - if not using smart pointers, make sure you remove heap memory here.
-* **shared_ptr<node> InitNode(int data)** - create a new node and return a shared pointer to it.
+* **shared_ptr\<node> InitNode(int data)** - create a new node and return a shared pointer to it.
 * **string Report()** - return a string representation of the list
 * **void AppendData(int data)** - given data value, create a new node with that data and append to the end of list.
 * **void Append(shared_ptr\<node> new_node)** - add given node to the end of the list.
@@ -97,3 +97,19 @@ video lectures. Here's a summary:
 * **bool Contains(int data)** - return true if the list contains a value
 * **shared_ptr\<node> GetTop()** - Returns a shared_ptr for top of the list. (for testing purposes) (this is implemented for you)
 * **void SetTop(shared_ptr\<node> top_ptr)** - Updates the Top pointer of the list to a new location given by top_ptr (for testing purposes) (this is implemented for you)
+
+### Useful Tips
+to create dynamic memory of an struct (for example "node") you can do
+```cpp
+shared_ptr<node> mynode(new node);
+```
+
+to re-assign a shared pointer to newly created memory do
+```cpp
+top_ptr_ = shared_ptr<node>(new node);
+```
+
+to assign a shared pointer to null
+```cpp
+top_ptr_ = shared_ptr<node>(NULL);
+```
