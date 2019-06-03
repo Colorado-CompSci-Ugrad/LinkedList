@@ -69,7 +69,7 @@ shared_ptr<node> build_three_node_list_helper(int one, int two, int three) {
   top->next->data = two;
   top->next->next = shared_ptr<node>(new node);
   top->next->next->data = three;
-  top->next->next->next = NULL;
+  top->next->next->next = shared_ptr<node>(NULL);
   return top;
 }
 
@@ -93,8 +93,9 @@ TEST_F(test_LinkedList, TestAppendData){
   shared_ptr<node> top = build_three_node_list_helper(42, 74, 51);
   mylist.SetTop(top);
   mylist.AppendData(10);
+  
   // get a cursor for appended data
-  shared_ptr<node> cursor = mylist.GetTop()->next->next;
+  shared_ptr<node> cursor = mylist.GetTop()->next->next->next;
   EXPECT_TRUE(cursor);
   add_points_to_grade(1);
 
@@ -107,7 +108,7 @@ TEST_F(test_LinkedList, TestAppendData){
   // try appending one more node
   mylist.AppendData(102);
   // update cursor to point to fifth member
-  cursor = mylist.GetTop()->next->next->next;
+  cursor = mylist.GetTop()->next->next->next->next;
   EXPECT_TRUE(cursor);  // expect not to be NULL
   add_points_to_grade(1);
 
@@ -133,10 +134,10 @@ TEST_F(test_LinkedList, TestAppendNode) {
   EXPECT_EQ(ap_five.get(), mylist.GetTop().get()); 
   add_points_to_grade(1);
   // ensure first element's value is 15
-  EXPECT_EQ(15,mylist.GetTop()->data); 
+  EXPECT_EQ(5,mylist.GetTop()->data); 
   add_points_to_grade(1);
   
-  // create a node and store the pointer to it
+  // Insert another node and test
   shared_ptr<node> ap_ten = mylist.InitNode(10);
   mylist.Append(ap_ten);
   EXPECT_EQ(10,mylist.GetTop()->next->data);
@@ -181,7 +182,7 @@ TEST_F(test_LinkedList, TestInsertData) {
   EXPECT_TRUE(expect_all_helper(initvals, 3,mylist.GetTop()));
 
   mylist.InsertData(0,4); // list is now 4, 30, 20, 10
-
+cout << mylist.Report() << endl;
   int vals[] = { 4, 30, 20, 10 };
   EXPECT_TRUE(expect_all_helper(vals, 4, mylist.GetTop())); 
   add_points_to_grade(1);
