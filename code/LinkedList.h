@@ -17,9 +17,11 @@ struct node {
 class LinkedList {
 public:
   // constructor, initialize class variables and pointers here if need.
+  // Initially set top pointer to a null shared_ptr of node
   LinkedList();
 
-  //deconstructor,
+  //deconstructor, if you are using shared_pointers you don't need to keep track of
+  // freeing memory and you can leave this blank
   ~LinkedList();
 
   // init_node creates a new node structure from heap memory. It points

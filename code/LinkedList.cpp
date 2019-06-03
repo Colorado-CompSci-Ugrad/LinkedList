@@ -5,9 +5,8 @@ LinkedList::LinkedList(){
   // Your code here
 }
 
-//deconstructor, delete heap memory here if you need.
+//deconstructor,
 LinkedList::~LinkedList(){
-  // Your code here
 }
 
 
@@ -27,7 +26,7 @@ void LinkedList::AppendData(int data){
   // Your code here
 }
 
-void LinkedList::Append(shared_ptr<node> new_node){
+void LinkedList::Append(shared_ptr<node>& new_node){
   // Your code here
 }
 
@@ -35,7 +34,7 @@ void LinkedList::InsertData(int offset, int data){
   // Your code here
 }
 
-void LinkedList::Insert(int offset, shared_ptr<node> new_node){
+void LinkedList::Insert(int offset, shared_ptr<node>& new_node){
   // Your code here
 }
 
@@ -56,13 +55,13 @@ bool LinkedList::Contains(int data){
 }
 
 // This function is implemented for you
-// Returns the top pointer
+// It returns the top pointer
 shared_ptr<node> LinkedList::GetTop(){
   return top_ptr_;
 }
 
 // This function is implemented for you
-// sets a given pointer as the top pointer
-void LinkedList::SetTop(shared_ptr<node> top_ptr){
+// It sets a given pointer as the top pointer
+void LinkedList::SetTop(shared_ptr<node>& top_ptr){
   top_ptr_ = top_ptr;
 }
