@@ -26,7 +26,7 @@ void LinkedList::AppendData(int data){
   // Your code here
 }
 
-void LinkedList::Append(shared_ptr<node>& new_node){
+void LinkedList::Append(shared_ptr<node> new_node){
   // Your code here
 }
 
@@ -34,7 +34,7 @@ void LinkedList::InsertData(int offset, int data){
   // Your code here
 }
 
-void LinkedList::Insert(int offset, shared_ptr<node>& new_node){
+void LinkedList::Insert(int offset, shared_ptr<node> new_node){
   // Your code here
 }
 
@@ -62,6 +62,6 @@ shared_ptr<node> LinkedList::GetTop(){
 
 // This function is implemented for you
 // It sets a given pointer as the top pointer
-void LinkedList::SetTop(shared_ptr<node>& top_ptr){
+void LinkedList::SetTop(shared_ptr<node> top_ptr){
   top_ptr_ = top_ptr;
 }

@@ -44,7 +44,7 @@ public:
 
   // append is the same as append_data, except we're adding a node, rather
   // than a value. 
-  void Append(shared_ptr<node>& new_node);
+  void Append(shared_ptr<node> new_node);
 
   // insert_data inserts a new node that contains the given data value,
   // such that the new node occupies the offset indicated. Any nodes
@@ -61,7 +61,7 @@ public:
 
   // insert is the same as insert_data, except we're inserting a node,
   // rather than a value.
-  void Insert(int offset, shared_ptr<node>& new_node);
+  void Insert(int offset, shared_ptr<node> new_node);
 
   // remove removes the node indicated by the given offset and frees its
   // memory. For example if our list contains 23, 74, 93, and we remove
@@ -86,7 +86,7 @@ public:
 
   // This function is implemented for you
   // sets a given pointer as the top pointer
-  void SetTop(shared_ptr<node>& top_ptr);
+  void SetTop(shared_ptr<node> top_ptr);
 
   // you can add more public member variables and member functions here if you need
 
