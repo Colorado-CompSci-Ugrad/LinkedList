@@ -84,9 +84,16 @@ In this assignment you'll implement a linked list data
 structure. We've covered the struct and associated operations in the
 video lectures. Here's a summary:
 
-* **init_node** - create a new node and return a pointer to it
-* **report** - return a string representation of the list
-* **append** and **append_data** - add to the end of the list
-* **insert** and **insert_data** - insert into any spot in the list
-* **size** - return the current size of the list
-* **contains** - return true if the list contains a value
+* **LinkedList()** - LinkedList constructor, set top pointer to null when object is created.
+* **~LinkedList()** - if not using smart pointers, make sure you remove heap memory here.
+* **shared_ptr<node> InitNode(int data)** - create a new node and return a shared pointer to it.
+* **string Report()** - return a string representation of the list
+* **void AppendData(int data)** - given data value, create a new node with that data and append to the end of list.
+* **void Append(shared_ptr\<node> new_node)** - add given node to the end of the list.
+* **void InsertData(int offset, int data)** - create a node with given data and insert to given offset position.
+* **void Insert(int offset, shared_ptr\<node> new_node)** - insert given node into any spot in the list
+* **void Remove(int offset)** - remove any index of list
+* **int Size()** - return current number of nodes in the list.
+* **bool Contains(int data)** - return true if the list contains a value
+* **shared_ptr\<node> GetTop()** - Returns a shared_ptr for top of the list. (for testing purposes) (this is implemented for you)
+* **void SetTop(shared_ptr\<node> top_ptr)** - Updates the Top pointer of the list to a new location given by top_ptr (for testing purposes) (this is implemented for you)
