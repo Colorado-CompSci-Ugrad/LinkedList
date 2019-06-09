@@ -22,6 +22,8 @@ protected:
 		if(outgrade.is_open())
 		outgrade.clear();
 
+    max_grade = 34;
+
 		outgrade << (int)std::ceil(100*total_grade/max_grade);
 		outgrade.close();
 
@@ -51,14 +53,14 @@ int test_LinkedList::max_grade = 0;
 
 TEST_F(test_LinkedList, TestInitialization){
   LinkedList mylist;
-  EXPECT_FALSE(mylist.GetTop()); // expect top to be NULL
+  ASSERT_FALSE(mylist.GetTop()); // expect top to be NULL
   add_points_to_grade(1);
   shared_ptr<node> root = mylist.InitNode(42);
-  EXPECT_TRUE(root);  // expect root itself to have a pointer (not NULL)
+  ASSERT_TRUE(root);  // expect root itself to have a pointer (not NULL)
   add_points_to_grade(1);
-  EXPECT_EQ(42, root->data);
+  ASSERT_EQ(42, root->data);
   add_points_to_grade(1);
-  EXPECT_FALSE(root->next); // expect next pointer to be null
+  ASSERT_FALSE(root->next); // expect next pointer to be null
   add_points_to_grade(1);
 }
 
@@ -77,14 +79,14 @@ TEST_F(test_LinkedList, TestReport){
   LinkedList mylist;
 
   string exp("");
-  EXPECT_EQ("",mylist.Report());
+  ASSERT_EQ("",mylist.Report());
   add_points_to_grade(2);
 
   // create a three node list and test the report result
   shared_ptr<node> top = build_three_node_list_helper(1, 2, 3);
   // replace mylist top_ptr_ with this new top
   mylist.SetTop(top);
-  EXPECT_EQ("1 2 3 ",mylist.Report());
+  ASSERT_EQ("1 2 3 ",mylist.Report());
   add_points_to_grade(2);
 }
 
@@ -96,26 +98,26 @@ TEST_F(test_LinkedList, TestAppendData){
   
   // get a cursor for appended data
   shared_ptr<node> cursor = mylist.GetTop()->next->next->next;
-  EXPECT_TRUE(cursor);
+  ASSERT_TRUE(cursor);
   add_points_to_grade(1);
 
-  EXPECT_FALSE(cursor->next); // expect to be NULL
+  ASSERT_FALSE(cursor->next); // expect to be NULL
   add_points_to_grade(1);
 
-  EXPECT_EQ(10,cursor->data);
+  ASSERT_EQ(10,cursor->data);
   add_points_to_grade(1);
 
   // try appending one more node
   mylist.AppendData(102);
   // update cursor to point to fifth member
   cursor = mylist.GetTop()->next->next->next->next;
-  EXPECT_TRUE(cursor);  // expect not to be NULL
+  ASSERT_TRUE(cursor);  // expect not to be NULL
   add_points_to_grade(1);
 
-  EXPECT_FALSE(cursor->next); // expect to be NULL
+  ASSERT_FALSE(cursor->next); // expect to be NULL
   add_points_to_grade(1);
 
-  EXPECT_EQ(102,cursor->data);
+  ASSERT_EQ(102,cursor->data);
   add_points_to_grade(1);
 }
 
@@ -128,29 +130,29 @@ TEST_F(test_LinkedList, TestAppendNode) {
   // add node 15 to an empty list
   mylist.Append(ap_five); 
   // ensure the list has a non-null top
-  EXPECT_TRUE(mylist.GetTop()); // Expect not to be NULL
+  ASSERT_TRUE(mylist.GetTop()); // expect not to be NULL
   add_points_to_grade(1);
   // ensure first element is the ap_nd node by coparing addresses
-  EXPECT_EQ(ap_five.get(), mylist.GetTop().get()); 
+  ASSERT_EQ(ap_five.get(), mylist.GetTop().get()); 
   add_points_to_grade(1);
   // ensure first element's value is 15
-  EXPECT_EQ(5,mylist.GetTop()->data); 
+  ASSERT_EQ(5,mylist.GetTop()->data); 
   add_points_to_grade(1);
   
   // Insert another node and test
   shared_ptr<node> ap_ten = mylist.InitNode(10);
   mylist.Append(ap_ten);
-  EXPECT_EQ(10,mylist.GetTop()->next->data);
+  ASSERT_EQ(10,mylist.GetTop()->next->data);
   add_points_to_grade(1);
-  EXPECT_FALSE(mylist.GetTop()->next->next); // expect to be NULL
+  ASSERT_FALSE(mylist.GetTop()->next->next); // expect to be NULL
   add_points_to_grade(1);
   
   // try appending one more
   shared_ptr<node> ap_nn = mylist.InitNode(99);
   mylist.Append(ap_nn);
-  EXPECT_EQ(99,mylist.GetTop()->next->next->data);
+  ASSERT_EQ(99,mylist.GetTop()->next->next->data);
   add_points_to_grade(1);
-  EXPECT_FALSE(mylist.GetTop()->next->next->next); // expect to b NULL
+  ASSERT_FALSE(mylist.GetTop()->next->next->next); // expect to b NULL
   add_points_to_grade(1);
 }
 
@@ -179,22 +181,22 @@ TEST_F(test_LinkedList, TestInsertData) {
   mylist.SetTop(threenode); // list is now 30, 20, 10
   
   int initvals[] = { 30, 20, 10 };
-  EXPECT_TRUE(expect_all_helper(initvals, 3,mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(initvals, 3,mylist.GetTop()));
 
   mylist.InsertData(0,4); // list is now 4, 30, 20, 10
 cout << mylist.Report() << endl;
   int vals[] = { 4, 30, 20, 10 };
-  EXPECT_TRUE(expect_all_helper(vals, 4, mylist.GetTop())); 
+  ASSERT_TRUE(expect_all_helper(vals, 4, mylist.GetTop())); 
   add_points_to_grade(1);
 
   mylist.InsertData(2,-78); // list is now 4, 30, -78, 20, 10
   int vals2[] = { 4, 30, -78, 20, 10 };
-  EXPECT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop()));
   add_points_to_grade(1);
 
   mylist.InsertData(5,99); // list is now 4, 30, -78, 20, 10, 99
   int vals3[] = { 4, 30, -78, 20, 10, 99 };
-  EXPECT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
   add_points_to_grade(1);
 }
 
@@ -208,21 +210,21 @@ TEST_F(test_LinkedList, TestInsertNode) {
   shared_ptr<node> nd_five = mylist.InitNode(5);
   mylist.Insert(0,nd_five);
   int vals[] = {5, 7, 98, -34};
-  EXPECT_TRUE(expect_all_helper(vals, 4, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals, 4, mylist.GetTop()));
   add_points_to_grade(1);
   
   // add in middle
   shared_ptr<node> nd_middle = mylist.InitNode(20);
   mylist.Insert(2,nd_middle);
   int vals2[] = { 5, 7, 20, 98, -34 };
-  EXPECT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals2, 5, mylist.GetTop()));
   add_points_to_grade(1);
 
   // add at end
   shared_ptr<node> nd_ending = mylist.InitNode(800);
   mylist.Insert(5,nd_ending);
   int vals3[] = { 5, 7, 20, 98, -34, 800 };
-  EXPECT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals3, 6, mylist.GetTop()));
   add_points_to_grade(1);
 }
 
@@ -233,12 +235,12 @@ TEST_F(test_LinkedList, TestRemove) {
   mylist.SetTop(threenode);
 
   int vals[] = {7, 86, 210 };
-  EXPECT_TRUE(expect_all_helper(vals, 3, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals, 3, mylist.GetTop()));
   
   // remove start
   mylist.Remove(0);
   int vals2[] = {86, 210 };
-  EXPECT_TRUE(expect_all_helper(vals2, 2, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals2, 2, mylist.GetTop()));
   add_points_to_grade(1);
   
   // reset and remove mid
@@ -246,7 +248,7 @@ TEST_F(test_LinkedList, TestRemove) {
   mylist.SetTop(threenode);
   mylist.Remove(1);
   int vals3[] = {7, 210 };
-  EXPECT_TRUE(expect_all_helper(vals3, 2, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals3, 2, mylist.GetTop()));
   add_points_to_grade(1);
 
   // reset and remove end
@@ -254,19 +256,19 @@ TEST_F(test_LinkedList, TestRemove) {
   mylist.SetTop(threenode);
   mylist.Remove(2);
   int vals4[] = {7, 86 };
-  EXPECT_TRUE(expect_all_helper(vals4, 2, mylist.GetTop()));
+  ASSERT_TRUE(expect_all_helper(vals4, 2, mylist.GetTop()));
   add_points_to_grade(1);
 }
 
 
 TEST_F(test_LinkedList, TestSize) {
   LinkedList mylist;
-  EXPECT_EQ(0, mylist.Size());
+  ASSERT_EQ(0, mylist.Size());
   add_points_to_grade(2);
   
   shared_ptr<node> threenode = build_three_node_list_helper(76, 12, 423);
   mylist.SetTop(threenode);
-  EXPECT_EQ(3, mylist.Size());
+  ASSERT_EQ(3, mylist.Size());
   add_points_to_grade(2);
 }
 
@@ -275,14 +277,14 @@ TEST_F(test_LinkedList, TestContains) {
   shared_ptr<node> threenode = build_three_node_list_helper(7, 0, -210);
   mylist.SetTop(threenode);
 
-  EXPECT_TRUE(mylist.Contains(-210));
+  ASSERT_TRUE(mylist.Contains(-210));
   add_points_to_grade(0.8);
-  EXPECT_TRUE(mylist.Contains(0));
+  ASSERT_TRUE(mylist.Contains(0));
   add_points_to_grade(0.8);
-  EXPECT_TRUE(mylist.Contains(7));
+  ASSERT_TRUE(mylist.Contains(7));
   add_points_to_grade(0.8);
-  EXPECT_FALSE(mylist.Contains(12));
+  ASSERT_FALSE(mylist.Contains(12));
   add_points_to_grade(0.8);
-  EXPECT_FALSE(mylist.Contains(-120));
+  ASSERT_FALSE(mylist.Contains(-120));
   add_points_to_grade(0.8);
 }
