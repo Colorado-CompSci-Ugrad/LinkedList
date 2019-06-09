@@ -113,3 +113,13 @@ to assign a shared pointer to null
 ```cpp
 top_ptr_ = shared_ptr<node>(NULL);
 ```
+
+to check if shared_ptr is NULL or points to a valid address
+```cpp
+shared_ptr<node> a_pointer;
+if(a_pointer){
+    // this will run if a_pointer points to an address
+} else {
+    // this will run if a_pointer was NULL
+}
+```
