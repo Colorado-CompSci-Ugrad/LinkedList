@@ -17,24 +17,24 @@ protected:
 	static void SetUpTestCase(){
 		std::ofstream outgrade("./total_grade.txt");
 		if(outgrade.is_open()){
-      outgrade.clear();
-      outgrade << (int)0;
-      outgrade.close();
-    }
+			outgrade.clear();
+			outgrade << (int)0;
+			outgrade.close();
+		}
 	}
 
 	// This function runs after all TEST_F functions have been executed
 	static void TearDownTestCase(){
 		std::ofstream outgrade("./total_grade.txt");
 		if(outgrade.is_open()){
-      outgrade.clear();
-      outgrade << (int)std::ceil(100*total_grade/max_grade);
-      outgrade.close();
-      std::cout << "Total Grade is : " << (int)std::ceil(100*total_grade/max_grade) << std::endl;
-    }
+			outgrade.clear();
+			outgrade << (int)std::ceil(100*total_grade/max_grade);
+			outgrade.close();
+			std::cout << "Total Grade is : " << (int)std::ceil(100*total_grade/max_grade) << std::endl;
+		}
 	}
 
-	void add_points_to_grade(int points){
+	void add_points_to_grade(double points){
 		if(!::testing::Test::HasFailure()){
 			total_grade += points;
 		}
@@ -43,22 +43,22 @@ protected:
 	// this function runs before every TEST_F function
 	void SetUp() override {}
 
-	// this function runs after ever TEST_F function
+	// this function runs after every TEST_F function
 	void TearDown() override {
 		std::ofstream outgrade("./total_grade.txt");
 		if(outgrade.is_open()){
-      outgrade.clear();
-      outgrade << (int)std::ceil(100*total_grade/max_grade);
-      outgrade.close();
-    }
-  }
+			outgrade.clear();
+			outgrade << (int)std::ceil(100*total_grade/max_grade);
+			outgrade.close();
+		}
+	}
 	
-	static int total_grade;
-	static int max_grade;
+	static double total_grade;
+	static double max_grade;
 };
 
-int test_LinkedList::total_grade = 0;
-int test_LinkedList::max_grade = 34;
+double test_LinkedList::total_grade = 0;
+double test_LinkedList::max_grade = 38;
 
 TEST_F(test_LinkedList, TestInitialization){
   LinkedList mylist;
